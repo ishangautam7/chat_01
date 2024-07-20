@@ -23,7 +23,7 @@ function Contacts({ contacts, currentUser, changeChat }) {
     <Container>
       <div className="brand">
         <img src={logo} alt="logo" />
-        <h3>Snappy</h3>
+        <h3>TEXTENDER</h3>
       </div>
 
       <div className="contacts">

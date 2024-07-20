@@ -5,12 +5,14 @@ import { useNavigate } from 'react-router-dom';
 import { allUsersRoute } from '../utils/APIRoutes';
 import Contacts from '../components/Contacts';
 import Welcome from '../components/Welcome';
+import ChatContainer from '../components/ChatContainer';
 
 const Chat = () => {
   const navigate = useNavigate();
   const [contacts, setContacts] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
   const [currentChat, setCurrentChat] = useState(undefined);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -21,6 +23,7 @@ const Chat = () => {
         } else {
           const parsedUser = JSON.parse(storedUser);
           setCurrentUser(parsedUser);
+          setLoaded(true)
         }
       } catch (error) {
         console.error('Error fetching user data:', error);
@@ -57,7 +60,9 @@ const Chat = () => {
     <Container>
       <div className="container">
         <Contacts contacts={contacts} currentUser={currentUser} changeChat={handleChatChange}/>
-        <Welcome currentUser={currentUser} />
+        {
+          loaded && currentChat === undefined ? <Welcome currentUser={currentUser} /> : <ChatContainer currentChat={currentChat} currentUser={currentUser}/>
+        }
       </div>
     </Container>
   );
