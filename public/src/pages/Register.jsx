@@ -6,7 +6,6 @@ import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios"
 import {registerRoute} from "../utils/APIRoutes.js"
-import { Navigate } from 'react-router-dom'
 
 function Register() {
   const navigate = useNavigate();
@@ -16,6 +15,7 @@ function Register() {
     password: '',
     confirmpassword: ''
   })
+  
   const toastOptions = {
     position: 'bottom-right',
     autoClose: 4000,
@@ -42,8 +42,8 @@ function Register() {
       }
       if(data.status === true){
         localStorage.setItem('chat-app-user', JSON.stringify(data.user))
+        navigate('/')
       }
-      navigate('/')
     }
   }
 
