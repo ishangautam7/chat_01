@@ -31,14 +31,13 @@ mongoose.connect("mongodb+srv://ishangautam:ishan123@datingapp.o2ofz.mongodb.net
 })
 
 const server = app.listen(4000, ()=>{
-    console.log(`Server is running at http://localhost:${4000} `)
+    console.log(`Server is running at http://localhost:4000 `)
 })
 
 
 const io = socket(server, {
     cors:{
-        origin: "https://chat-01-1.onrender.com/",   
-        credentials: true
+        origin: ["https://chat-01-1.onrender.com/"],
     }
 })
 

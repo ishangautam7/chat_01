@@ -25,6 +25,7 @@ const Chat = () => {
           navigate('/login');
         } else {
           const parsedUser = JSON.parse(storedUser);
+          console.log(parsedUser)
           setCurrentUser(parsedUser);
           setLoaded(true)
         }

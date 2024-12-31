@@ -24,11 +24,11 @@ function Register() {
     theme: "dark"
   }
 
-  useEffect(()=>{
-    if(localStorage.getItem('chat-app-user')){
-      navigate('/')
-    }
-  },[])
+  // useEffect(()=>{
+  //   if(localStorage.getItem('chat-app-user')){
+  //     navigate('/')
+  //   }
+  // },[])
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -37,6 +37,7 @@ function Register() {
       const {data} = await axios.post(registerRoute, {
         username, email, password
       })
+      console.log(data)
       if(data.status === false){
         toast.error(data.msg, toastOptions)
       }

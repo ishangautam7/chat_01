@@ -24,7 +24,8 @@ function Login() {
   }
 
   useEffect(()=>{
-    if(localStorage.getItem('chat-app-user')){
+    const token = localStorage.getItem('chat-app-user')
+    if(token && token!=="undefined"){
       navigate('/')
     }
   },[])
