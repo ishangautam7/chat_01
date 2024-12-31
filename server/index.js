@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const userRoutes = require('./routes/userRoutes')
 const messageRoute = require('./routes/messageRoute')
 const socket = require('socket.io');
+const path = require("path")
 
 const app = express();
 require('dotenv').config();
@@ -13,7 +14,7 @@ app.use(express.json());
 app.use("/api/auth", userRoutes)
 app.use("/api/messages", messageRoute)
 
-app.use(express.static(path.join("../client/dist")))
+app.use(express.static(path.join(__dirname, '../client/dist'))); 
 
 app.get("*",(req,res) => {
     res.sendFile(path.join(__dirname,"../client/dist/index.html"))
@@ -22,12 +23,13 @@ app.get("*",(req,res) => {
 const PORT = 4000;
 console.log(PORT);
 
-mongoose.connect(process.env.MONGO_URL)
+mongoose.connect("mongodb+srv://ishangautam:ishan123@datingapp.o2ofz.mongodb.net/")
 .then(()=>{
     console.log("Connected to Database")
 }).catch((err)=>{
     console.log("Error", err.message)
 })
+
 const server = app.listen(4000, ()=>{
     console.log(`Server is running at http://localhost:${4000} `)
 })
