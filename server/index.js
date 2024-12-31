@@ -14,10 +14,10 @@ app.use(express.json());
 app.use("/api/auth", userRoutes)
 app.use("/api/messages", messageRoute)
 
-app.use(express.static(path.join(__dirname, '../client/dist'))); 
+app.use(express.static(path.join(__dirname, '../client/public'))); 
 
 app.get("*",(req,res) => {
-    res.sendFile(path.join(__dirname,"../client/dist/index.html"))
+    res.sendFile(path.join(__dirname,"../client/public/index.html"))
 })
 
 const PORT = 4000;
