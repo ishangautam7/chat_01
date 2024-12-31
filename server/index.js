@@ -14,10 +14,10 @@ app.use(express.json());
 app.use("/api/auth", userRoutes)
 app.use("/api/messages", messageRoute)
 
-app.use(express.static(path.join(__dirname, '../client/public'))); 
+app.use(express.static(path.join(__dirname, '../client/build'))); 
 
 app.get("*",(req,res) => {
-    res.sendFile(path.join(__dirname,"../client/public/index.html"))
+    res.sendFile(path.join(__dirname,"../client/build/index.html"))
 })
 
 const PORT = 4000;
@@ -37,7 +37,7 @@ const server = app.listen(4000, ()=>{
 
 const io = socket(server, {
     cors:{
-        origin: "",   
+        origin: "https://chat-01-1.onrender.com/",   
         credentials: true
     }
 })
