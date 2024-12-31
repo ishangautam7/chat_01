@@ -13,25 +13,29 @@ app.use(express.json());
 app.use("/api/auth", userRoutes)
 app.use("/api/messages", messageRoute)
 
-const PORT = process.env.PORT || 4141;
+app.use(express.static(path.join("../client/dist")))
+
+app.get("*",(req,res) => {
+    res.sendFile(path.join(__dirname,"../client/dist/index.html"))
+})
+
+const PORT = 4000;
 console.log(PORT);
 
-mongoose.connect(process.env.MONGO_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-}).then(()=>{
-    console.log('Connected to MongoDB');
+mongoose.connect(process.env.MONGO_URL)
+.then(()=>{
+    console.log("Connected to Database")
 }).catch((err)=>{
-    console.log('Error:', err.message);
+    console.log("Error", err.message)
+})
+const server = app.listen(4000, ()=>{
+    console.log(`Server is running at http://localhost:${4000} `)
 })
 
-const server = app.listen(4141, ()=>{
-    console.log(`Server is runing at http://localhost:${PORT}`);
-})
 
 const io = socket(server, {
     cors:{
-        origin: "http://localhost:3000",   
+        origin: "https://chat-01-622k.onrender.com",   
         credentials: true
     }
 })
