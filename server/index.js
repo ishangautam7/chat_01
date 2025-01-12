@@ -5,6 +5,13 @@ const userRoutes = require('./routes/userRoutes')
 const messageRoute = require('./routes/messageRoute')
 const socket = require('socket.io');
 const path = require("path")
+const admin = require("firebase-admin")
+
+const serviceAccountKey = require('./config/serviceAccountKey.json');
+
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccountKey),
+});
 
 const app = express();
 require('dotenv').config();
@@ -14,10 +21,10 @@ app.use(express.json());
 app.use("/api/auth", userRoutes)
 app.use("/api/messages", messageRoute)
 
-app.use(express.static(path.join(__dirname, '../client/build'))); 
+app.use(express.static(path.join(__dirname, '../client/public'))); 
 
 app.get("*",(req,res) => {
-    res.sendFile(path.join(__dirname,"../client/build/index.html"))
+    res.sendFile(path.join(__dirname,"../client/public/index.html"))
 })
 
 const PORT = 4000;

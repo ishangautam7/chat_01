@@ -14,12 +14,6 @@ const userSchema = new mongoose.Schema({
         unique: true,
         maxlength: 50,
     },
-    password: {
-        type: String,
-        required: true,
-        minlength: 8,
-        maxlength: 64,
-    },
     isAvatarImageSet: {
         type: Boolean,
         default: false,
@@ -27,6 +21,10 @@ const userSchema = new mongoose.Schema({
     avatarImage: {
         type: String,
         default: "",
+    },
+    firebaseUid: {
+        type: String,
+        unique: true, // Ensure no duplicate Firebase UIDs
     },
 }, {
     timestamps: true, // Adds createdAt and updatedAt fields

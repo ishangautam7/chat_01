@@ -2,10 +2,10 @@ import React, { useState, useEffect, useRef } from 'react'
 import styled from 'styled-components';
 import LogOut from '../components/LogOut';
 import ChatInput from './ChatInput';
-import Messages from '../components/Messages'
+// import Messages from '../components/Messages'
 import axios from 'axios';
 import { sendMessageRoute, recieveMessageRoute } from '../utils/APIRoutes'
-import {v4 as uuidv4} from 'uuid'
+// import {v4 as uuidv4} from 'uuid'
 
 function ChatContainer({ currentChat, currentUser, socket }) {
 

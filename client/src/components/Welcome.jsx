@@ -7,7 +7,7 @@ function Welcome({ currentUser }) {
     useEffect(() => {
         try {
             const fetchUserName = async () => {
-                const user = JSON.parse(localStorage.getItem("chat-app-user")).username;
+                const user = JSON.parse(localStorage.getItem("accessToken")).user.username;
                 setUserName(user)
             }
             fetchUserName();

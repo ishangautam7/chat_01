@@ -20,22 +20,26 @@ const Chat = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const storedUser = localStorage.getItem("chat-app-user");
+        const storedUser = localStorage.getItem("accessToken");
+        console.log(storedUser);
+        
         if (!storedUser) {
           navigate('/login');
         } else {
           const parsedUser = JSON.parse(storedUser);
-          console.log(parsedUser)
-          setCurrentUser(parsedUser);
-          setLoaded(true)
+          const userId = parsedUser.user._id;
+          const username = parsedUser.user.username; // Access the username from the parsed user object
+          setCurrentUser({ username, _id: userId }); // Set the username in your state (or whatever you need)
+          setLoaded(true);
         }
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
     };
-
+  
     fetchUserData();
-  }, [navigate]);
+  }, []);
+  
 
   useEffect(()=>{
     if(currentUser){
@@ -45,23 +49,22 @@ const Chat = () => {
   }, [currentUser])
 
   useEffect(() => {
-    const fetchContacts = async () => {
+    const fetchUserData = async () => {
       try {
-        if (currentUser && currentUser.isAvatarImageSet) {
-          const response = await axios.get(`${allUsersRoute}/${currentUser._id}`);
-          setContacts(response.data);
-        } else if (currentUser) {
-          navigate('/setAvatar');
+        const storedUser = localStorage.getItem("accessToken");
+        if (!storedUser) {
+          navigate('/login');
+        } else {
+          const parsedUser = JSON.parse(storedUser);
+          setCurrentUser(parsedUser.user); // Use the full user object
+          setLoaded(true);
         }
       } catch (error) {
-        console.error('Error fetching contacts:', error);
+        console.error('Error fetching user data:', error);
       }
     };
-
-    if (currentUser !== null) {
-      fetchContacts();
-    }
-  }, [currentUser, navigate]);
+    fetchUserData();
+  }, []);
 
   const handleChatChange = (chat) => {
     setCurrentChat(chat);
